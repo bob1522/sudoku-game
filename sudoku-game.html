@@ -3,51 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Sudoku Game</title>
-  <style>
-    /* Basic CSS styling for the Sudoku grid and controls */
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    #sudoku-grid {
-      display: inline-block;
-      margin-top: 20px;
-    }
-
-    .sudoku-row {
-      display: flex;
-    }
-
-    .sudoku-cell {
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      font-size: 20px;
-      border: 1px solid #000;
-      box-sizing: border-box;
-    }
-
-    /* Thicker borders for 3x3 grid */
-    .sudoku-cell:nth-child(3), .sudoku-cell:nth-child(6) {
-      border-right: 2px solid #000;
-    }
-
-    .sudoku-row:nth-child(3) .sudoku-cell,
-    .sudoku-row:nth-child(6) .sudoku-cell {
-      border-bottom: 2px solid #000;
-    }
-
-    #controls {
-      margin-top: 20px;
-    }
-
-    #controls button, #controls select {
-      font-size: 16px;
-      padding: 5px 10px;
-      margin: 5px;
-    }
-  </style>
+  <link href="styles.css" rel="stylesheet" />
+    
 </head>
 <body>
   <h1>Sudoku Game</h1>
