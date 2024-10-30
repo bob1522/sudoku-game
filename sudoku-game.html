@@ -71,58 +71,7 @@
       return puzzleString.split('').map(char => (char === '.' ? 0 : parseInt(char, 10)));
     }
 
-    // Sample Sudoku puzzle (0 represents empty cells)
-    const puzzle = [
-        [5,3,0, 0,7,0, 0,0,0],
-        [6,0,0, 1,9,5, 0,0,0],
-        [0,9,8, 0,0,0, 0,6,0],
-        
-        [8,0,0, 0,6,0, 0,0,3],
-        [4,0,0, 8,0,3, 0,0,1],
-        [7,0,0, 0,2,0, 0,0,6],
-        
-        [0,6,0, 0,0,0, 2,8,0],
-        [0,0,0, 4,1,9, 0,0,5],
-        [0,0,0, 0,8,0, 0,7,9]
-    ];
-
-    function createSudokuGrid() {
-        const gridElement = document.getElementById('sudoku-grid');
-
-        for (let row = 0; row < 9; row++) {
-            for (let col = 0; col < 9; col++) {
-                const cellValue = puzzle[row][col];
-                const cellElement = document.createElement('div');
-                cellElement.classList.add('sudoku-cell');
-
-                // Add thick borders for 3x3 grids
-                if (col % 3 === 0 && col !== 0) {
-                    cellElement.style.borderLeft = '2px solid #000';
-                }
-                if (row % 3 === 0 && row !== 0) {
-                    cellElement.style.borderTop = '2px solid #000';
-                }
-
-                const inputElement = document.createElement('input');
-                inputElement.type = 'text';
-                inputElement.maxLength = 1;
-                inputElement.dataset.row = row;
-                inputElement.dataset.col = col;
-
-                if (cellValue !== 0) {
-                    inputElement.value = cellValue;
-                    inputElement.readOnly = true;
-                    cellElement.classList.add('fixed');
-                } else {
-                    inputElement.value = '';
-                }
-
-                cellElement.appendChild(inputElement);
-                gridElement.appendChild(cellElement);
-            }
-        }
-    }
-    createSudokuGrid();
+    
 </script>
     <!-- Place this in your HTML where you want the buttons and selector to appear -->
 <div id="controls">
