@@ -3,65 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Sudoku Game</title>
-  <style>
-    /* Basic CSS styling for the Sudoku grid and controls */
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
-
-    #sudoku-grid {
-      display: inline-block;
-      margin-top: 20px;
-    }
-
-    .sudoku-row {
-      display: flex;
-    }
-
-    .sudoku-cell {
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      font-size: 20px;
-      border: 1px solid #000;
-      box-sizing: border-box;
-    }
-
-    /* Thicker borders for 3x3 grid */
-    .sudoku-cell:nth-child(3), .sudoku-cell:nth-child(6) {
-      border-right: 2px solid #000;
-    }
-
-    .sudoku-row:nth-child(3) .sudoku-cell,
-    .sudoku-row:nth-child(6) .sudoku-cell {
-      border-bottom: 2px solid #000;
-    }
-
-    /* New styles for pre-filled cells */
-    .prefilled-cell {
-      background-color: #e0e0e0; /* Light grey background */
-    }
-
-    /* Style for user-entered numbers */
-    .user-input {
-      color: red; /* Red text for user input */
-    }
-
-    /* Remove red text from pre-filled cells */
-    .prefilled-cell.user-input {
-      color: black;
-    }
-
-  </style>
+  
 </head>
 <body>
-  <h1>Sudoku Game</h1>
-
-  <!-- Sudoku Grid -->
-  <div id="sudoku-grid">
-    <!-- Generate the grid using JavaScript -->
-  </div>
+  <h2>Sudoku Game</h2>
 
   <!-- Controls -->
   <div id="controls">
@@ -73,6 +18,11 @@
       <option value="medium" selected>Medium</option>
       <option value="hard">Hard</option>
     </select>
+  </div><br>
+  
+  <!-- Sudoku Grid -->
+  <div id="sudoku-grid">
+    <!-- Generate the grid using JavaScript -->
   </div>
 
   <!-- Include the Sudoku library -->
