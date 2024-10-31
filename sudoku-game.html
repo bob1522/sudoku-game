@@ -46,7 +46,7 @@
       });
     });
 
-    // Function to generate the Sudoku grid
+    /* Function to generate the Sudoku grid
     function generateGrid() {
       const gridContainer = document.getElementById('sudoku-grid');
 
@@ -80,7 +80,34 @@
         gridContainer.appendChild(rowDiv);
       }
     }
+    */
+    // Function to generate the Sudoku grid
+    function generateGrid() {
+      const gridContainer = document.getElementById('sudoku-grid');
 
+      for (let row = 0; row < 9; row++) {
+        const rowDiv = document.createElement('div');
+        rowDiv.classList.add('sudoku-row');
+
+        for (let col = 0; col < 9; col++) {
+          const cellInput = document.createElement('input');
+          cellInput.type = 'text';
+          cellInput.maxLength = '1';
+          cellInput.classList.add('sudoku-cell');
+          cellInput.id = 'cell-' + (row * 9 + col);
+
+          // Allow only numbers 1-9
+          cellInput.addEventListener('input', function() {
+            this.value = this.value.replace(/[^1-9]/g, '');
+          });
+
+          rowDiv.appendChild(cellInput);
+        }
+
+        gridContainer.appendChild(rowDiv);
+      }
+    }
+    
     function generateNewGame(difficulty) {
       clearBoard();
 
