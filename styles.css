@@ -75,6 +75,9 @@ h1 {
     width: 30px;
     height: 30px;
     font-size: 16px;
+   #controls {
+    flex-direction: column;
+  }
   }
 
   #controls button, #controls select {
