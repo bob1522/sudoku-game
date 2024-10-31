@@ -3,13 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Sudoku Game</title>
-  <link href="styles.css" rel="stylesheet" />
-    
+  <style>
+    /* Basic CSS styling for the Sudoku grid and controls */
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    #sudoku-grid {
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    .sudoku-row {
+      display: flex;
+    }
+
+    .sudoku-cell {
+      width: 40px;
+      height: 40px;
+      text-align: center;
+      font-size: 20px;
+      border: 1px solid #000;
+      box-sizing: border-box;
+    }
+
+    /* Thicker borders for 3x3 grid */
+    .sudoku-cell:nth-child(3), .sudoku-cell:nth-child(6) {
+      border-right: 2px solid #000;
+    }
+
+    .sudoku-row:nth-child(3) .sudoku-cell,
+    .sudoku-row:nth-child(6) .sudoku-cell {
+      border-bottom: 2px solid #000;
+    }
+
+    /* New styles for pre-filled cells */
+    .prefilled-cell {
+      background-color: #e0e0e0; /* Light grey background */
+    }
+
+    /* Style for user-entered numbers */
+    .user-input {
+      color: red; /* Red text for user input */
+    }
+
+    /* Remove red text from pre-filled cells */
+    .prefilled-cell.user-input {
+      color: black;
+    }
+
+  </style>
 </head>
 <body>
+  <h1>Sudoku Game</h1>
+
+  <!-- Sudoku Grid -->
+  <div id="sudoku-grid">
+    <!-- Generate the grid using JavaScript -->
+  </div>
+
   <!-- Controls -->
   <div id="controls">
-    <button id="generate-btn">Generate</button>
+    <button id="generate-btn">Generate New Game</button>
     <button id="solve-btn">Solve Game</button>
     <label for="difficulty-select">Difficulty:</label>
     <select id="difficulty-select">
@@ -17,15 +73,10 @@
       <option value="medium" selected>Medium</option>
       <option value="hard">Hard</option>
     </select>
-  </div><br>
-  
-  <!-- Sudoku Grid -->
-  <div id="sudoku-grid">
-    <!-- Generate the grid using JavaScript -->
   </div>
 
   <!-- Include the Sudoku library -->
-  <script src="sudoku.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sudoku/1.0.0/sudoku.min.js"></script>
 
   <!-- JavaScript code -->
   <script>
@@ -46,41 +97,6 @@
       });
     });
 
-    /* Function to generate the Sudoku grid
-    function generateGrid() {
-      const gridContainer = document.getElementById('sudoku-grid');
-
-      for (let row = 0; row < 9; row++) {
-        const rowDiv = document.createElement('div');
-        rowDiv.classList.add('sudoku-row');
-
-        for (let col = 0; col < 9; col++) {
-          const cellInput = document.createElement('input');
-          cellInput.type = 'text';
-          cellInput.maxLength = '1';
-          cellInput.classList.add('sudoku-cell');
-          cellInput.id = 'cell-' + (row * 9 + col);
-
-          // Add thick borders for 3x3 grids
-          if (col % 3 === 0 && col !== 0) {
-              cellInput.style.borderLeft = '2px solid #000';
-          }
-          if (row % 3 === 0 && row !== 0) {
-              cellInput.style.borderTop = '2px solid #000';
-          }
-
-          // Allow only numbers 1-9
-          cellInput.addEventListener('input', function() {
-            this.value = this.value.replace(/[^1-9]/g, '');
-          });
-
-          rowDiv.appendChild(cellInput);
-        }
-
-        gridContainer.appendChild(rowDiv);
-      }
-    }
-    */
     // Function to generate the Sudoku grid
     function generateGrid() {
       const gridContainer = document.getElementById('sudoku-grid');
@@ -99,6 +115,14 @@
           // Allow only numbers 1-9
           cellInput.addEventListener('input', function() {
             this.value = this.value.replace(/[^1-9]/g, '');
+            // Add user-input class when user types a number
+            if (!this.classList.contains('prefilled-cell')) {
+              if (this.value) {
+                this.classList.add('user-input');
+              } else {
+                this.classList.remove('user-input');
+              }
+            }
           });
 
           rowDiv.appendChild(cellInput);
@@ -107,23 +131,28 @@
         gridContainer.appendChild(rowDiv);
       }
     }
-    
+
     function generateNewGame(difficulty) {
       clearBoard();
 
       // Generate a new puzzle using the sudoku library
       const puzzleString = sudoku.generate(difficulty);
+
       const puzzleArray = convertPuzzleStringToArray(puzzleString);
+
       populateBoard(puzzleArray);
     }
 
     function solveGame() {
       const board = getCurrentBoard();
+
       const boardString = board.map(num => (num === 0 ? '.' : num)).join('');
+
       const solutionString = sudoku.solve(boardString);
+
       if (solutionString) {
         const solutionArray = convertPuzzleStringToArray(solutionString);
-        populateBoard(solutionArray);
+        populateBoard(solutionArray, true); // Pass true to indicate solving
       } else {
         alert('No solution found for the current board.');
       }
@@ -134,19 +163,33 @@
         const cell = document.getElementById('cell-' + i);
         cell.value = '';
         cell.disabled = false;
+        cell.classList.remove('prefilled-cell');
+        cell.classList.remove('user-input');
       }
     }
 
-    function populateBoard(puzzleArray) {
+    function populateBoard(puzzleArray, isSolving = false) {
       for (let i = 0; i < 81; i++) {
         const cell = document.getElementById('cell-' + i);
         if (puzzleArray[i] !== 0) {
           cell.value = puzzleArray[i];
-          cell.disabled = true; // Disable cells that are part of the initial puzzle
-          
+          if (!isSolving) {
+            cell.disabled = true; // Disable cells that are part of the initial puzzle
+            cell.classList.add('prefilled-cell');
+            cell.classList.remove('user-input');
+          } else {
+            // If solving, don't disable cells, just populate
+            if (!cell.classList.contains('prefilled-cell')) {
+              cell.classList.add('user-input');
+            }
+          }
         } else {
-          cell.value = '';
-          cell.disabled = false;
+          if (!isSolving) {
+            cell.value = '';
+            cell.disabled = false;
+            cell.classList.remove('prefilled-cell');
+            cell.classList.remove('user-input');
+          }
         }
       }
     }
