@@ -30,3 +30,38 @@ body {
     font-weight: bold;
     cursor: default;
  }
+/* Media Queries for Smaller Screens */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.0em;
+        margin: 10px 0;
+    }
+
+    .instructions p, .user-info label, .difficulty-options label {
+        font-size: 0.5em;
+    }
+
+    .difficulty-options label, .user-info label {
+        display: inline-block;
+        margin: 5px 0;
+    }
+
+    input[type="text"] {
+        width: 9vw;
+        height: 9vw;
+        max-width: 40px;
+        max-height: 40px;
+        font-size: 1.0em;
+    }
+
+    .action-buttons input {
+        margin: 1px auto;
+        padding: 10px;
+        font-size: 1em;
+    }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
