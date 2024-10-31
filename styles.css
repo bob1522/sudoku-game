@@ -1,30 +1,30 @@
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
 
-    #sudoku-grid {
-      display: inline-block;
-      margin-top: 20px;
-    }
+#sudoku-grid {
+  display: inline-block;
+  margin-top: 20px;
+}
 
-    .sudoku-row {
-      display: flex;
-    }
+.sudoku-row {
+  display: flex;
+}
 
-    .sudoku-cell {
-      width: 40px;
-      height: 40px;
-      text-align: center;
-      font-size: 20px;
-      border: 1px solid #000;
-      box-sizing: border-box;
-    }
+.sudoku-cell {
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-size: 20px;
+  border: 1px solid #000;
+  box-sizing: border-box;
+}
 
-    /* Thicker borders for 3x3 grid */
-    .sudoku-cell:nth-child(3), .sudoku-cell:nth-child(6) {
-      border-right: 2px solid #000;
-    }
+/* Thicker borders for 3x3 grid */
+.sudoku-cell:nth-child(3), .sudoku-cell:nth-child(6) {
+  border-right: 2px solid #000;
+}
 
 /* Media Queries for Smaller Screens */
 @media (max-width: 600px) {
