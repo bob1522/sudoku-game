@@ -7,13 +7,6 @@
     
 </head>
 <body>
-  <h1>Sudoku Game</h1>
-
-  <!-- Sudoku Grid -->
-  <div id="sudoku-grid">
-    <!-- Generate the grid using JavaScript -->
-  </div><br>
-
   <!-- Controls -->
   <div id="controls">
     <button id="generate-btn">Generate</button>
@@ -24,6 +17,11 @@
       <option value="medium" selected>Medium</option>
       <option value="hard">Hard</option>
     </select>
+  </div><br>
+  
+  <!-- Sudoku Grid -->
+  <div id="sudoku-grid">
+    <!-- Generate the grid using JavaScript -->
   </div>
 
   <!-- Include the Sudoku library -->
@@ -88,19 +86,14 @@
 
       // Generate a new puzzle using the sudoku library
       const puzzleString = sudoku.generate(difficulty);
-
       const puzzleArray = convertPuzzleStringToArray(puzzleString);
-
       populateBoard(puzzleArray);
     }
 
     function solveGame() {
       const board = getCurrentBoard();
-
       const boardString = board.map(num => (num === 0 ? '.' : num)).join('');
-
       const solutionString = sudoku.solve(boardString);
-
       if (solutionString) {
         const solutionArray = convertPuzzleStringToArray(solutionString);
         populateBoard(solutionArray);
@@ -123,6 +116,7 @@
         if (puzzleArray[i] !== 0) {
           cell.value = puzzleArray[i];
           cell.disabled = true; // Disable cells that are part of the initial puzzle
+          
         } else {
           cell.value = '';
           cell.disabled = false;
