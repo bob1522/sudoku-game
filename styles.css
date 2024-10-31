@@ -30,6 +30,109 @@ body {
     font-weight: bold;
     cursor: default;
  }
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.nav {
+    text-align: center;
+    font-size: 2em;
+    margin: 20px 0;
+}
+.difficulty-options {
+    text-align: center;
+    margin: 10px 0;
+    white-space: nowrap;
+}
+
+.difficulty-options label {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.instructions, .difficulty-options, .user-info, .action-buttons {
+    text-align: center;
+    margin: 10px 0;
+}
+
+.difficulty-options label, .user-info label {
+    display: inline-block;
+    margin: 5px 10px;
+}
+
+.user-info input {
+    margin-left: 5px;
+}
+
+table {
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+table, td {
+    border: 1px solid black;
+}
+
+td {
+    padding: 0;
+}
+
+input[type="text"] {
+    width: 8vw; /* Adjust the width to be responsive */
+    height: 8vw; /* Adjust the height to be responsive */
+    max-width: 50px; /* Set a maximum width */
+    max-height: 50px; /* Set a maximum height */
+    text-align: center;
+    font-size: 1.5em;
+    border: none;
+}
+
+
+.action-buttons input {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+}
+
+.generate-button {
+    text-align: center;
+    margin: 15px 0;
+}
+
+/* Styles for puzzle cells */
+.puzzle-cell {
+    background-color: #e0e0e0; /* Light gray */
+    font-weight: bold;
+}
+
+/* Styles for user-entered cells */
+.user-cell {
+    background-color: #ffffff; /* White */
+}
+
+/* Styles for hint cells */
+.hint-cell {
+    background-color: #c0ffc0; /* Light green */
+}
+/* Borders for 3x3 grid emphasis */
+td.top-border {
+    border-top: 2px solid black;
+}
+
+td.bottom-border {
+    border-bottom: 2px solid black;
+}
+
+td.left-border {
+    border-left: 2px solid black;
+}
+
+td.right-border {
+    border-right: 2px solid black;
+}
+
 /* Media Queries for Smaller Screens */
 @media (max-width: 600px) {
     h1 {
