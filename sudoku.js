@@ -28,8 +28,8 @@
         "easy":         51,
         "medium":       41,
         "hard":         31,
-        "very-hard":    35,
-        "insane":       26,
+        "very-hard":    25,
+        "insane":       21,
         "inhuman":      17,
     };
 
