@@ -13,7 +13,7 @@ h3 {
   text-align: center;
 }
 #controls {
-  margin: 10px auto;
+  margin: 20px auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -21,7 +21,7 @@ h3 {
 }
 
 #controls button, #controls select {
-  font-size: 25px;
+  font-size: 16px;
   padding: 5px 5px;
   margin: 5px;
 }
