@@ -207,7 +207,7 @@ function fillPuzzle(solution) {
 }
 
 // Function to print
-// document.getElementById('print-btn').addEventListener('click', () => {
-//   window.print();
-//});
-//}
+ document.getElementById('print-btn').addEventListener('click', () => {
+   window.print();
+});
+
