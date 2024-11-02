@@ -94,7 +94,10 @@ h3 {
   padding: 10px 20px;
   cursor: pointer;
 }
-
+/* New class for numbers entered via the number bar */
+.number-bar-input {
+  color: red;
+}
 
 /* Responsive Design for Mobile Devices */
 @media (max-width: 600px) {
