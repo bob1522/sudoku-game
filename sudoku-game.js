@@ -129,7 +129,7 @@
       button.addEventListener('click', () => {
         if (selectedCell && !selectedCell.classList.contains('prefilled')) {
           const number = button.getAttribute('data-number');
-          selectedCell.textContent = number;
+          selectedCell.value = number;
           addToUndoStack(selectedCell, number);
         }
       });
@@ -144,12 +144,12 @@
     document.getElementById('undo-btn').addEventListener('click', () => {
       if (undoStack.length > 0) {
         const lastMove = undoStack.pop();
-        lastMove.cell.textContent = '';
+        lastMove.cell.value = '';
       }
     });
     document.getElementById('reset-btn').addEventListener('click', () => {
       undoStack.forEach((move) => {
-        move.cell.textContent = '';
+        move.cell.value = '';
       });
       undoStack = [];
     });
@@ -166,7 +166,7 @@
     function getPuzzleState() {
       let puzzle = [];
       sudokuCells.forEach((cell) => {
-        puzzle.push(cell.textContent || '.');
+        puzzle.push(cell.value || '.');
       });
       return puzzle;
     }
@@ -174,7 +174,7 @@
     // Function to fill the puzzle with the solution
     function fillPuzzle(solution) {
       sudokuCells.forEach((cell, index) => {
-        cell.textContent = solution[index];
+        cell.value = solution[index];
       });
     }
     // Function to print
@@ -182,7 +182,7 @@
       window.print();
     });
     sudokuCells.forEach((cell) => {
-    if (cell.textContent !== '') {
+    if (cell.value !== '') {
         cell.classList.add('prefilled');
       }
     });
