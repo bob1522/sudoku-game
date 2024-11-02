@@ -261,6 +261,13 @@
       window.print();
     });
 
+    sudokuCells.forEach((cell) => {
+    if (cell.textContent !== '') {
+        cell.classList.add('prefilled');
+      }
+    });
+
+
 
 
 
