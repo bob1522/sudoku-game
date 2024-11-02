@@ -172,6 +172,35 @@
     function convertPuzzleStringToArray(puzzleString) {
       return puzzleString.split('').map(char => (char === '.' ? 0 : parseInt(char, 10)));
     }
+    let selectedCell = null;
+
+    // Function to handle cell selection
+    function selectCell(cell) {
+      if (selectedCell) {
+        selectedCell.classList.remove('selected');
+      }
+      selectedCell = cell;
+      selectedCell.classList.add('selected');
+    }
+    
+    // Add event listeners to Sudoku cells
+    const sudokuCells = document.querySelectorAll('.sudoku-cell');
+    sudokuCells.forEach((cell) => {
+      cell.addEventListener('click', () => selectCell(cell));
+    });
+    
+    // Add event listeners to number buttons
+    const numberButtons = document.querySelectorAll('.number-btn');
+    numberButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        if (selectedCell && !selectedCell.classList.contains('prefilled')) {
+          const number = button.getAttribute('data-number');
+          selectedCell.textContent = number;
+          addToUndoStack(selectedCell, number);
+        }
+      });
+    });
+
   </script>
 </body>
 </html>
