@@ -80,12 +80,12 @@ body {
 #toolbar {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 #toolbar button {
   margin: 0 10px;
-  padding: 10px 20px;
+  padding: 5px 5px 5px 5px;
   cursor: pointer;
 }
 
@@ -100,7 +100,7 @@ body {
     
   #controls button, #controls select {
     font-size: 14px;
-    padding: 5px;
+    padding: 2px;
   }
 
  }
