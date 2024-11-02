@@ -205,6 +205,10 @@ function fillPuzzle(solution) {
     cell.value = solution[index];
   });
 }
+// Event listener for 'Print' button
+  document.getElementById('print-btn').addEventListener('click', () => {
+    window.print();
+  });
 
                                                        
 
