@@ -199,21 +199,15 @@ function getPuzzleState() {
   return puzzle.join('');
 }
 
-
 // Function to fill the puzzle with the solution
-    function fillPuzzle(solution) {
-      sudokuCells.forEach((cell, index) => {
-        cell.textContent = solution[index];
-      });
-    }
-    // Function to print
-        document.getElementById('print-btn').addEventListener('click', () => {
-      window.print();
-    });
-    sudokuCells.forEach((cell) => {
-    if (cell.textContent !== '') {
-        cell.classList.add('prefilled');
-      }
-    });
-  
+function fillPuzzle(solution) {
+  sudokuCells.forEach((cell, index) => {
+    cell.value = solution[index];
+  });
 }
+
+// Function to print
+// document.getElementById('print-btn').addEventListener('click', () => {
+//   window.print();
+//});
+//}
