@@ -70,6 +70,19 @@ h3 {
 .prefilled-cell.user-input {
   color: black;
 }
+#number-grid {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.number-btn {
+  width: 40px;
+  height: 40px;
+  margin: 5px;
+  font-size: 18px;
+  cursor: pointer;
+}
 
 /* Responsive Design for Mobile Devices */
 @media (max-width: 600px) {
