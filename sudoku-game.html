@@ -223,6 +223,40 @@
         lastMove.cell.textContent = '';
       }
     });
+    document.getElementById('reset-btn').addEventListener('click', () => {
+      undoStack.forEach((move) => {
+        move.cell.textContent = '';
+      });
+      undoStack = [];
+    });
+
+    document.getElementById('solve-btn').addEventListener('click', () => {
+  const puzzle = getPuzzleState();
+  const solution = solveSudoku(puzzle);
+  if (solution) {
+    fillPuzzle(solution);
+  } else {
+    alert('No solution found.');
+  }
+});
+
+    // Function to get the current state of the puzzle
+    function getPuzzleState() {
+      let puzzle = [];
+      sudokuCells.forEach((cell) => {
+        puzzle.push(cell.textContent || '.');
+      });
+      return puzzle;
+    }
+    
+    // Function to fill the puzzle with the solution
+    function fillPuzzle(solution) {
+      sudokuCells.forEach((cell, index) => {
+        cell.textContent = solution[index];
+      });
+    }
+
+
 
 
   </script>
