@@ -36,6 +36,7 @@ function generateGrid() {
       const cellInput = document.createElement('input');
       cellInput.type = 'text';
       cellInput.maxLength = '1';
+      cellInput.inputMode = 'none';
       cellInput.classList.add('sudoku-cell');
       cellInput.id = 'cell-' + (row * 9 + col);
       // Allow only numbers 1-9
