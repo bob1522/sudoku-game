@@ -6,36 +6,26 @@ let undoStack = [];
 
 // Wait for the DOM to load
 document.addEventListener('DOMContentLoaded', function() {
-  // Generate the Sudoku grid
+  // Generate the Sudoku grid (empty)
   generateGrid();
+
   // Now that the grid is generated, add event listeners
   addCellEventListeners();
 
-  // Load saved puzzle if available
-  const savedPuzzle = localStorage.getItem('savedPuzzle');
-  if (savedPuzzle) {
-    const load = confirm('You have a saved game. Would you like to continue?');
-    if (load) {
-      const puzzleState = JSON.parse(savedPuzzle);
-      loadPuzzleState(puzzleState);
-    } else {
-      localStorage.removeItem('savedPuzzle');
-      // Generate a new game if the user does not continue the saved game
-      generateNewGame('easy');
-    }
-  } else {
-    // Generate a new game if there is no saved game
-    generateNewGame('easy');
-  }
-
-  // Event listener for 'Generate New Game' button
+  // Event listener for 'New Game' button
   document.getElementById('generate-btn').addEventListener('click', function() {
-    generateNewGame('easy');
+    const difficulty = document.getElementById('difficulty-select').value;
+    generateNewGame(difficulty);
   });
 
-  // Event listener for 'Solve Game' button
-  document.getElementById('solve-btn').addEventListener('click', function() {
-    solveGame();
+  // Event listener for 'Save Game' button
+  document.getElementById('save-btn').addEventListener('click', function() {
+    savePuzzle();
+  });
+
+  // Event listener for 'Load Game' button
+  document.getElementById('load-btn').addEventListener('click', function() {
+    loadPuzzle();
   });
 
   // Event listener for 'Print' button
@@ -53,21 +43,20 @@ document.addEventListener('DOMContentLoaded', function() {
     resetGame();
   });
 
-  // Event listener for 'Save Game' button
-  document.getElementById('save-btn').addEventListener('click', function() {
-    savePuzzle();
-  });
-
-  // Event listener for 'Load Game' button
-  document.getElementById('load-btn').addEventListener('click', function() {
-    loadPuzzle();
+  // Event listener for 'Solve Game' button
+  document.getElementById('solve-btn').addEventListener('click', function() {
+    solveGame();
   });
 });
 
 // Function to generate the Sudoku grid
 function generateGrid() {
   const gridContainer = document.getElementById('sudoku-grid');
+  // Clear any existing grid
+  gridContainer.innerHTML = '';
   for (let row = 0; row < 9; row++) {
+    const rowDiv = document.createElement('div');
+    rowDiv.classList.add('sudoku-row');
     for (let col = 0; col < 9; col++) {
       const cellInput = document.createElement('input');
       cellInput.type = 'text';
@@ -75,30 +64,16 @@ function generateGrid() {
       cellInput.classList.add('sudoku-cell');
       cellInput.id = 'cell-' + (row * 9 + col);
 
-      // Allow only numbers 1-9
-      cellInput.addEventListener('input', function() {
-        const oldValue = this.value;
-        this.value = this.value.replace(/[^1-9]/g, '');
-        if (oldValue !== this.value) {
-          // User changed the input
-          if (!this.classList.contains('prefilled-cell')) {
-            if (this.value) {
-              addToUndoStack(this, this.value, false); // Indicate manual input
-              this.classList.add('user-input');
-              this.classList.remove('number-bar-input');
-            } else {
-              this.classList.remove('user-input');
-              this.classList.remove('number-bar-input');
-            }
-          }
-        }
-      });
+      // Prevent virtual keyboard from appearing
+      cellInput.readOnly = true;
+      cellInput.inputMode = 'none';
 
       // Add event listener for cell selection
       cellInput.addEventListener('click', () => selectCell(cellInput));
 
-      gridContainer.appendChild(cellInput);
+      rowDiv.appendChild(cellInput);
     }
+    gridContainer.appendChild(rowDiv);
   }
   // Update the sudokuCells NodeList after creating the cells
   sudokuCells = document.querySelectorAll('.sudoku-cell');
@@ -189,10 +164,11 @@ function solveGame() {
 function clearBoard() {
   sudokuCells.forEach((cell) => {
     cell.value = '';
-    cell.disabled = false;
     cell.classList.remove('prefilled-cell');
     cell.classList.remove('user-input');
     cell.classList.remove('number-bar-input');
+    // Ensure cells remain read-only
+    cell.readOnly = true;
   });
 }
 
@@ -204,7 +180,7 @@ function populateBoard(puzzleArray, isSolving = false) {
     if (value !== 0) {
       cell.value = value;
       if (!isSolving) {
-        cell.disabled = true; // Disable cells that are part of the initial puzzle
+        // Cells that are part of the initial puzzle
         cell.classList.add('prefilled-cell');
         cell.classList.remove('user-input');
         cell.classList.remove('number-bar-input');
@@ -218,7 +194,6 @@ function populateBoard(puzzleArray, isSolving = false) {
     } else {
       if (!isSolving) {
         cell.value = '';
-        cell.disabled = false;
         cell.classList.remove('prefilled-cell');
         cell.classList.remove('user-input');
         cell.classList.remove('number-bar-input');
@@ -265,15 +240,15 @@ function loadPuzzleState(puzzleState) {
   sudokuCells.forEach((cell, index) => {
     const cellData = puzzleState[index];
     cell.value = cellData.value;
-    cell.disabled = cellData.isPrefilled;
     cell.className = ''; // Reset classes
     cellData.classes.forEach((className) => {
       cell.classList.add(className);
     });
+    // Ensure cells remain read-only
+    cell.readOnly = true;
   });
 }
 
-// Function to get the current puzzle state
 function getCurrentPuzzleState() {
   let puzzleState = [];
   sudokuCells.forEach((cell) => {
