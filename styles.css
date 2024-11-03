@@ -59,6 +59,10 @@ body {
 .user-input {
   color: red; /* Red text for user input */
 }
+.number-bar-input {
+  color: red;
+}
+
 
 /* Remove red text from pre-filled cells */
 .prefilled-cell.user-input {
