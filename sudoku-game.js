@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     solveGame();
   });
   // Event listener for 'Print' button
-  document.getElementById('print-btn').addEventListener('click', function() => {
+  document.getElementById('print-btn').addEventListener('click', function() {
     window.print();
   });
   
