@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
     solveGame();
   });
   // Event listener for 'Print' button
-  document.getElementById('print-btn').addEventListener('click', () => {
+  document.getElementById('print-btn').addEventListener('click', function() {
     window.print();
   });
   
@@ -205,10 +205,7 @@ function fillPuzzle(solution) {
     cell.value = solution[index];
   });
 }
-// Event listener for 'Print' button
-  document.getElementById('print-btn').addEventListener('click', function() {
-    window.print();
-  });
+
 
                                                        
 
