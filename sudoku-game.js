@@ -20,13 +20,18 @@ document.addEventListener('DOMContentLoaded', function() {
       loadPuzzleState(puzzleState);
     } else {
       localStorage.removeItem('savedPuzzle');
-      // Optionally generate a new game here
-      // generateNewGame('easy');
+      // Generate a new game if the user does not continue the saved game
+      generateNewGame('easy');
     }
   } else {
-    // Optionally generate a new game here
-    // generateNewGame('easy');
+    // Generate a new game if there is no saved game
+    generateNewGame('easy');
   }
+
+  // Event listener for 'Generate New Game' button
+  document.getElementById('generate-btn').addEventListener('click', function() {
+    generateNewGame('easy');
+  });
 
   // Event listener for 'Solve Game' button
   document.getElementById('solve-btn').addEventListener('click', function() {
@@ -63,7 +68,6 @@ document.addEventListener('DOMContentLoaded', function() {
 function generateGrid() {
   const gridContainer = document.getElementById('sudoku-grid');
   for (let row = 0; row < 9; row++) {
-    // Remove rowDiv if not needed
     for (let col = 0; col < 9; col++) {
       const cellInput = document.createElement('input');
       cellInput.type = 'text';
