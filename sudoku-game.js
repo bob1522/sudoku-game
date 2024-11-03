@@ -19,15 +19,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Event listener for 'Save Game' button
-  document.getElementById('save-btn').addEventListener('click', function() {
-    savePuzzle();
-  });
-
+  document.getElementById('save-btn').addEventListener('click', savePuzzle);
   // Event listener for 'Load Game' button
-  document.getElementById('load-btn').addEventListener('click', function() {
-    loadPuzzle();
-  });
-
+  document.getElementById('load-btn').addEventListener('click', loadPuzzle);
   // Event listener for 'Print' button
   document.getElementById('print-btn').addEventListener('click', function() {
     window.print();
