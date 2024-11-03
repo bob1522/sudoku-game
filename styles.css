@@ -12,7 +12,7 @@ body {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  color: white;
+  
 }
 
 #controls button, #controls select {
