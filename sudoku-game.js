@@ -10,20 +10,53 @@ document.addEventListener('DOMContentLoaded', function() {
   generateGrid();
   // Now that the grid is generated, add event listeners
   addCellEventListeners();
-  // Event listener for 'Generate New Game' button
-  document.getElementById('generate-btn').addEventListener('click', function() {
-    const difficulty = document.getElementById('difficulty-select').value;
-    generateNewGame(difficulty);
-  });
+
+  // Load saved puzzle if available
+  const savedPuzzle = localStorage.getItem('savedPuzzle');
+  if (savedPuzzle) {
+    const load = confirm('You have a saved game. Would you like to continue?');
+    if (load) {
+      const puzzleState = JSON.parse(savedPuzzle);
+      loadPuzzleState(puzzleState);
+    } else {
+      localStorage.removeItem('savedPuzzle');
+      // Optionally generate a new game here
+      // generateNewGame('easy');
+    }
+  } else {
+    // Optionally generate a new game here
+    // generateNewGame('easy');
+  }
+
   // Event listener for 'Solve Game' button
   document.getElementById('solve-btn').addEventListener('click', function() {
     solveGame();
   });
+
   // Event listener for 'Print' button
   document.getElementById('print-btn').addEventListener('click', function() {
     window.print();
   });
-  
+
+  // Event listener for 'Undo' button
+  document.getElementById('undo-btn').addEventListener('click', function() {
+    undoLastMove();
+  });
+
+  // Event listener for 'Reset' button
+  document.getElementById('reset-btn').addEventListener('click', function() {
+    resetGame();
+  });
+
+  // Event listener for 'Save Game' button
+  document.getElementById('save-btn').addEventListener('click', function() {
+    savePuzzle();
+  });
+
+  // Event listener for 'Load Game' button
+  document.getElementById('load-btn').addEventListener('click', function() {
+    loadPuzzle();
+  });
 });
 
 // Function to generate the Sudoku grid
@@ -80,15 +113,7 @@ function addCellEventListeners() {
       lastMove.cell.value = lastMove.previousValue;
     }
   });
-  // Reset the puzzle to its initial state
-  document.getElementById('reset-btn').addEventListener('click', () => {
-    sudokuCells.forEach((cell) => {
-      if (!cell.classList.contains('prefilled-cell')) {
-        cell.value = '';
-      }
-    });
-    undoStack = [];
-  });
+  
 }
 
 // Function to handle cell selection
@@ -204,6 +229,63 @@ function fillPuzzle(solution) {
   sudokuCells.forEach((cell, index) => {
     cell.value = solution[index];
   });
+}
+// Function to get the current puzzle state
+function getCurrentPuzzleState() {
+  let puzzleState = [];
+  sudokuCells.forEach((cell) => {
+    const cellData = {
+      value: cell.value || '',
+      isPrefilled: cell.classList.contains('prefilled-cell'),
+      classes: Array.from(cell.classList),
+    };
+    puzzleState.push(cellData);
+  });
+  return puzzleState;
+}
+
+// Function to save the puzzle state to local storage
+function savePuzzle() {
+  const puzzleState = getCurrentPuzzleState();
+  localStorage.setItem('savedPuzzle', JSON.stringify(puzzleState));
+  alert('Your game has been saved!');
+}
+
+// Function to load the puzzle state from local storage
+function loadPuzzle() {
+  const savedPuzzle = localStorage.getItem('savedPuzzle');
+  if (savedPuzzle) {
+    const puzzleState = JSON.parse(savedPuzzle);
+    loadPuzzleState(puzzleState);
+    alert('Your saved game has been loaded!');
+  } else {
+    alert('No saved game found.');
+  }
+}
+
+function loadPuzzleState(puzzleState) {
+  sudokuCells.forEach((cell, index) => {
+    const cellData = puzzleState[index];
+    cell.value = cellData.value;
+    cell.disabled = cellData.isPrefilled;
+    cell.className = ''; // Reset classes
+    cellData.classes.forEach((className) => {
+      cell.classList.add(className);
+    });
+  });
+}
+
+// Update resetGame function to clear saved puzzle
+function resetGame() {
+  sudokuCells.forEach((cell) => {
+    if (!cell.classList.contains('prefilled-cell')) {
+      cell.value = '';
+      cell.classList.remove('user-input');
+      cell.classList.remove('number-bar-input');
+    }
+  });
+  undoStack = [];
+  localStorage.removeItem('savedPuzzle');
 }
 
 
