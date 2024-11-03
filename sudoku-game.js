@@ -206,7 +206,7 @@ function fillPuzzle(solution) {
   });
 }
 // Event listener for 'Print' button
-  document.getElementById('print-btn').addEventListener('click', () => {
+  document.getElementById('print-btn').addEventListener('click', function() {
     window.print();
   });
 
