@@ -99,13 +99,13 @@ body {
 /* Responsive Design for Mobile Devices */
 @media (max-width: 600px) {
   .sudoku-cell {
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     font-size: 16px;
   }  
     
   #controls button, #controls select {
-    font-size: 14px;
+    font-size: 15px;
     padding: 2px;
   }
   .number-btn {
