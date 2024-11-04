@@ -213,10 +213,10 @@ function convertPuzzleStringToArray(puzzleString) {
 
 // Function to save the puzzle state to local storage
 function savePuzzle() {
-  alert('Your game has been saved!');
-  //const puzzleState = getCurrentPuzzleState();
-  //localStorage.setItem('savedPuzzle', JSON.stringify(puzzleState));
   //alert('Your game has been saved!');
+  const puzzleState = getCurrentPuzzleState();
+  localStorage.setItem('savedPuzzle', JSON.stringify(puzzleState));
+  alert('Your game has been saved!');
 }
 
 // Function to load the puzzle state from local storage
